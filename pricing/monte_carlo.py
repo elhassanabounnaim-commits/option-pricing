@@ -25,7 +25,7 @@ def monte_carlo_european(S0, K, T, r, sigma, n_paths,
     # On génère les réalisations de la loi normale 
     Z = rng.standard_normal(n_paths)
     
-    # Le vecteur des prix de sous jacent selon les N trajectoire 
+    # Le vecteur des prix de sous jacent selon les N trajectoires 
     S_T = S0 * np.exp((r - (sigma**2)/2)*T + sigma * np.sqrt(T)* Z)
 
     # Vecteur des payoff actualisés

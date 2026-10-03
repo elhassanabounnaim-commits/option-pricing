@@ -19,10 +19,6 @@ def black_scholes(S0, K, T, r, sigma, option_type="call"):
     
     
 
-call_price = black_scholes(S0=100, K=100, T=1, r=0.05, sigma=0.2, option_type="call")
-put_price = black_scholes(S0=100, K=100, T=1, r=0.05, sigma=0.2, option_type="put")    
-
-print(f"Call: {call_price:.4f}, Put: {put_price:.4f}")
 
 
 
