@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.stats import norm
 
-def black_scholes(S0, K, T, r, sigma, option_type="call"):
+def black_scholes(S0, K, T, r, sigma, option_type="call" ):
     """Price a European option with the Black-Scholes closed-form formula."""
     if option_type.lower() == "call" :
         sign = 1
