@@ -201,12 +201,35 @@ monte_carlo_european(100, 100, 1, 0.05, 0.2, n_paths=100_000, seed=42)
 # MC(price=10.420541..., std_error=0.046769..., ci=(10.328872..., 10.512210...))
 ```
 
+## Tests
+
+```bash
+pytest
+```
+
+The suite covers 30 cases. The core check is put-call parity, applied to all three pricers
+across six parameter sets spanning at-the-money, deep in and out of the money, short maturity,
+high volatility and zero rate. The identity is model-free, so it catches errors that a
+comparison between our own implementations would miss: a sign error on the put produces a gap
+forty times the test tolerance.
+
+The suite also verifies that the binomial tree converges to Black-Scholes as the number of
+steps grows, that the Monte Carlo confidence interval contains the exact price, that a fixed
+seed gives a bit-identical result, and that invalid inputs raise rather than silently return a
+plausible wrong number.
+
+Monte Carlo needs a calibrated tolerance, since its output is random. It is set at five
+standard errors, which makes a spurious failure negligible while keeping a wide detection
+margin. These tests catch structural errors rather than a one percent drift on a price; the
+comparison against the closed-form value covers that.
+
 ## Project structure
 
 ```
 option-pricing/
 ├── pricing/            pricing library, one module per method
 ├── notebooks/          convergence studies and figures
+├── scripts/            standalone analyses
 ├── tests/              unit tests
 ├── README.md
 └── requirements.txt
@@ -235,7 +258,6 @@ sizes used here, and would be removed with a separate pilot run if needed.
 - American options: binomial tree with early exercise, and Longstaff-Schwartz least-squares
   Monte Carlo
 - Implied volatility by numerical inversion, and the volatility smile
-- Unit test suite covering put-call parity, convergence rates and cross-method consistency
 
 ## References
 
